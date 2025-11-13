@@ -4,7 +4,6 @@ import CustomForm from "./components/CustomForm.jsx";
 import EditForm from "./components/EditForm.jsx";
 import TaskList from "./components/TaskList/TaskList.jsx";
 import ThemeSwitcher from "./components/ThemeSwitcher/ThemeSwitcher.jsx";
-import TaskFilter from "./components/TaskFilter/TaskFilter.jsx";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage('react-todo.tasks', [])
