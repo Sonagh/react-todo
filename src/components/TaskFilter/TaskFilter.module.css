@@ -1,0 +1,26 @@
+.filter {
+    display: flex;
+    justify-content: space-between;
+    gap: .6em;;
+    padding: .3em;
+    background-color: hsl(var(--muted));
+    border-radius: calc(var(--radius) * 2);
+}
+
+.button {
+    padding: .3em .4em;
+    background-color: transparent;
+    border-radius: calc(var(--radius) * 2);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+        background-color: hsl(var(--bg));
+    }
+}
+
+.active {
+    background-color: hsl(var(--bg));
+}

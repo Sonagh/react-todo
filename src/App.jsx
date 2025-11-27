@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import useLocalStorage from "./hooks/useLocalStorage";
 import CustomForm from "./components/CustomForm.jsx";
 import EditForm from "./components/EditForm.jsx";
 import TaskList from "./components/TaskList/TaskList.jsx";
 import ThemeSwitcher from "./components/ThemeSwitcher/ThemeSwitcher.jsx";
+import TaskFilter from "./components/TaskFilter/TaskFilter.jsx";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage('react-todo.tasks', [])
   const [previousFocusEl, setPreviousFocusEl] = useState(null);
   const [editedTask, setEditedTask] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [filter, setFilter] = useState('all');
 
   const addTask = (task) => {
     setTasks(prevState => [...prevState, task])
@@ -47,10 +49,21 @@ function App() {
     setPreviousFocusEl(document.activeElement);
   }
 
+  const filteredTasks = useMemo(() => {
+    switch (filter) {
+      case 'active':
+        return tasks.filter(task => !task.checked);
+      case 'completed':
+        return tasks.filter(task => task.checked);
+      default:
+        return tasks;
+    }
+  }, [tasks, filter]);
+
   return (
     <div className="container">
       <header>
-        <h1>My Task List</h1>
+        <h1>My To Do List</h1>
       </header>
 
       {isEditing && (
@@ -64,9 +77,15 @@ function App() {
 
       <CustomForm addTask={addTask} />
 
+      <TaskFilter
+        tasks={tasks}
+        currentFilter={filter}
+        onFilterChange={setFilter}
+      />
+
       {tasks &&
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
           enterEditMode={enterEditMode}

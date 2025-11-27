@@ -15,7 +15,7 @@ const ThemeSwitcher = () => {
   }, [theme])
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--_hue', hue);
+    document.documentElement.style.setProperty('--hue', hue);
   }, [hue])
 
   return (
